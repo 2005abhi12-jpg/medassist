@@ -35,6 +35,10 @@ MedAssist is an AI-powered medication management system designed to help patient
 
 ## 📸 Screenshots
 (Add screenshots here later)
+Login page:
+<img width="1422" height="778" alt="Screenshot 2026-04-06 at 1 39 15 PM" src="https://github.com/user-attachments/assets/3ae6d57e-2661-47ed-8865-0dfd92605356" />
+Dashboard page:
+<img width="1439" height="779" alt="Screenshot 2026-04-06 at 1 46 13 PM" src="https://github.com/user-attachments/assets/ceab234a-f014-4980-9fde-04ae956921b6" />
 
 ---
 
