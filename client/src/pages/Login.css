@@ -1,0 +1,240 @@
+.login-page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0b1121; /* Match the exact dark gradient background */
+  background-image: radial-gradient(circle at center, #111827 0%, #0b1121 100%);
+  overflow: hidden;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Hide blobs as per original screenshot */
+.login-bg-blob {
+  display: none !important;
+}
+
+/* Solid Dark Card */
+.login-card {
+  position: relative;
+  z-index: 10;
+  background: #1f2937;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+
+/* Logo */
+.login-logo {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.login-logo-icon {
+  background: #6366f1;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 16px;
+  filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.5));
+}
+
+.login-logo-text {
+  font-size: 20px;
+  font-weight: 700;
+  color: #818cf8;
+}
+
+/* Typography */
+.login-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  color: #f9fafb;
+}
+
+.login-subtitle {
+  font-size: 14px;
+  color: #9ca3af;
+  margin: 0 0 32px 0;
+}
+
+/* Form Elements */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.login-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.login-input-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #9ca3af;
+}
+
+.login-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.login-input-icon {
+  position: absolute;
+  left: 14px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.login-input {
+  width: 100%;
+  background: #111827;
+  border: 1px solid #374151;
+  border-radius: 8px;
+  padding: 12px 14px 12px 40px;
+  color: #f9fafb;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.login-input::placeholder {
+  color: #4b5563;
+}
+
+.login-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.login-password-toggle {
+  position: absolute;
+  right: 14px;
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.login-password-toggle:hover {
+  color: #9ca3af;
+}
+
+/* Buttons */
+.login-btn {
+  background: #818cf8;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 4px;
+}
+
+.login-btn:hover {
+  background: #6366f1;
+}
+
+/* Divider */
+.login-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.login-divider-line {
+  flex: 1;
+  height: 1px;
+  background: #374151;
+}
+
+.login-divider-text {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* OAuth Buttons */
+.login-oauth-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.login-oauth-btn {
+  flex: 1;
+  background: transparent;
+  border: 1px solid #374151;
+  border-radius: 8px;
+  padding: 10px;
+  color: #d1d5db;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.login-oauth-btn:hover {
+  background: #374151;
+}
+
+/* Links */
+.login-signup-link {
+  text-align: center;
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.login-signup-link a {
+  color: #818cf8;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.login-signup-link a:hover {
+  color: #a5b4fc;
+}
+
+/* Error messages */
+.login-error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 8px;
+  animation: shakeError 0.3s ease;
+}
+
+@keyframes shakeError {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
