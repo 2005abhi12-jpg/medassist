@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import API from "../api";
 import "./Login.css";
 import ParticleCanvas from "../components/ParticleCanvas";
@@ -131,7 +131,7 @@ function Login() {
 
         {/* Signup link */}
         <div className="login-signup-link">
-          Don't have an account? <a href="/signup">Sign up here</a>
+          Don't have an account? <Link to="/signup">Sign up here</Link>
         </div>
       </div>
     </div>
