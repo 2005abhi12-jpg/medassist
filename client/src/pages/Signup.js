@@ -26,7 +26,7 @@ function Signup() {
         email: form.email,
         phone: form.phone,
         password: form.password,
-        role: "patient",
+        role: form.role || "patient",
       });
 
       const { user, accessToken, refreshToken } = res.data.data;
@@ -36,8 +36,11 @@ function Signup() {
       localStorage.setItem("role", user.role);
       localStorage.setItem("userName", user.name);
       localStorage.setItem("userId", user._id);
-
-      navigate("/patient");
+      if (user.role === "caregiver") {
+        navigate("/caregiver");
+      } else {
+        navigate("/patient");
+      }
     } catch (err) {
       const message = err.response?.data?.error?.message || "Registration failed. Please try again.";
       setError(message);
@@ -80,6 +83,18 @@ function Signup() {
               <span className="login-input-icon">✉️</span>
               <input className="login-input" type="email" placeholder="you@example.com"
                 value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+            </div>
+          </div>
+
+          <div className="login-input-group">
+            <label className="login-input-label">Account Type</label>
+            <div className="login-input-wrapper">
+              <span className="login-input-icon">🩺</span>
+              <select className="login-input" style={{ width: '100%', border: 'none', background: 'transparent', outline: 'none', color: 'inherit' }}
+                value={form.role || "patient"} onChange={(e) => setForm({ ...form, role: e.target.value })}>
+                <option value="patient" style={{ color: '#333' }}>Patient</option>
+                <option value="caregiver" style={{ color: '#333' }}>Caregiver</option>
+              </select>
             </div>
           </div>
 
