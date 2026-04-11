@@ -75,15 +75,16 @@ async function triggerReminders() {
  */
 async function retriggerSnoozed() {
   try {
-    const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000);
+    const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
 
     const snoozedReminders = await Reminder.find({
       status: REMINDER_STATUS.SNOOZED,
-      updatedAt: { $lte: tenMinutesAgo },
+      updatedAt: { $lte: fiveMinutesAgo },
     }).limit(50);
 
     for (const reminder of snoozedReminders) {
       reminder.status = REMINDER_STATUS.TRIGGERED;
+      reminder.scheduledTime = new Date(); // Reset time to prevent immediate missed marker
       await reminder.save();
 
       const [user, medication] = await Promise.all([

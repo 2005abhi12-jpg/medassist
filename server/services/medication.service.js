@@ -1,11 +1,43 @@
 const Medication = require('../models/Medication');
 const ApiError = require('../utils/ApiError');
 
+const Schedule = require('../models/Schedule');
+const Reminder = require('../models/Reminder');
+const User = require('../models/User');
+const { localTimeToUTC } = require('../utils/timezone');
+const { REMINDER_STATUS } = require('../config/constants');
+
 /**
  * Create a new medication for a user.
  */
 async function createMedication(userId, data) {
-  const medication = await Medication.create({ ...data, userId });
+  const { time, ...medData } = data;
+  const medication = await Medication.create({ ...medData, userId });
+  
+  if (time) {
+    const schedule = await Schedule.create({
+      medicationId: medication._id,
+      userId,
+      times: [time],
+      recurrence: 'daily'
+    });
+    
+    const user = await User.findById(userId);
+    const timezone = user && user.timezone ? user.timezone : 'UTC';
+    
+    let scheduledTimeUTC = localTimeToUTC(time, timezone);
+    
+    // If time is already past today, maybe schedule for tomorrow? But the user wants them in "Today's reminder", so we'll just create it for today.
+    // Ensure the date is today's date in local time, which localTimeToUTC already uses by default.
+    await Reminder.create({
+      scheduleId: schedule._id,
+      userId,
+      medicationId: medication._id,
+      scheduledTime: scheduledTimeUTC,
+      status: REMINDER_STATUS.SCHEDULED,
+    });
+  }
+  
   return medication;
 }
 

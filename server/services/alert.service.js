@@ -24,15 +24,27 @@ async function sendCaregiverAlert({ patient, caregiver, medication, type }) {
     createdAt: new Date()
   });
 
+  // 3. Real-time WebSocket Alert
+  if (global.io) {
+    global.io.emit("caregiver_alert", {
+      caregiverId: caregiver._id,
+      patientId: patient._id,
+      message,
+      type
+    });
+  }
+
   // Keep SMS fallback (optional, nice for demo)
-  if (patient.caregiverPhone) {
+  if (caregiver && caregiver.phone) {
     try {
       await client.messages.create({
         body: message,
         from: process.env.TWILIO_PHONE,
-        to: patient.caregiverPhone,
+        to: caregiver.phone,
       });
-    } catch (e) {}
+    } catch (e) {
+      console.log("Twilio SMS failed (expected if keys missing):", e.message);
+    }
   }
 }
 

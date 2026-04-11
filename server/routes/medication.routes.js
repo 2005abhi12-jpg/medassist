@@ -13,7 +13,7 @@ router
   .route('/')
   .post(
     roleGuard('patient'),
-    validate('name', 'dosage', 'startDate'),
+    validate('name', 'dosage', 'startDate', 'time'),
     audit('CREATE', 'medications'),
     medController.create
   )

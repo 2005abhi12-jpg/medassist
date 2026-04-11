@@ -9,5 +9,6 @@ router.use('/adherence', require('./adherence.routes'));
 router.use('/caregiver', require('./caregiver.routes'));
 router.use('/voice', require('./voice.routes'));
 router.use('/admin', require('./admin.routes'));
+router.use('/alerts', require('./alert.routes'));
 
 module.exports = router;
