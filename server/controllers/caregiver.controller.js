@@ -96,3 +96,24 @@ exports.getMyPatients = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id).populate('patientIds', 'name age phone language');
   res.status(200).json({ success: true, data: user.patientIds });
 });
+
+/**
+ * DELETE /api/v1/caregiver/patients/:patientId
+ */
+exports.unlinkPatient = asyncHandler(async (req, res) => {
+  const { patientId } = req.params;
+  const caregiverId = req.user._id;
+
+  await verifyPatientAccess(caregiverId, patientId);
+
+  // Unlink on both sides
+  await User.findByIdAndUpdate(caregiverId, {
+    $pull: { patientIds: patientId }
+  });
+
+  await User.findByIdAndUpdate(patientId, {
+    $pull: { caregiverIds: caregiverId }
+  });
+
+  res.status(200).json({ success: true, message: 'Patient removed successfully' });
+});

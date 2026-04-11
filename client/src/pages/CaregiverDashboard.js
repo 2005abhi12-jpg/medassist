@@ -57,6 +57,21 @@ function CaregiverDashboard() {
     fetchData();
   };
 
+  const handleDeletePatient = async (patientId, e) => {
+    e.stopPropagation();
+    if (!window.confirm("Are you sure you want to remove this patient from your linked list?")) return;
+    try {
+      await API.delete(`/caregiver/patients/${patientId}`);
+      if (selectedPatient && selectedPatient._id === patientId) {
+        setSelectedPatient(null);
+      }
+      fetchData();
+    } catch (err) {
+      console.error(err);
+      alert("Failed to remove patient. Ensure checking your network.");
+    }
+  };
+
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
@@ -119,9 +134,10 @@ function CaregiverDashboard() {
                   <div className="empty-state">You have no linked patients yet.</div>
                 ) : (
                   patients.map(p => (
-                    <div key={p._id} className="med-card" style={{ cursor: 'pointer' }} onClick={() => loadPatientDashboard(p._id)}>
+                    <div key={p._id} className="med-card" style={{ cursor: 'pointer', position: 'relative' }} onClick={() => loadPatientDashboard(p._id)}>
                       <div className="med-header">
                         <div className="med-name">👤 {p.name}</div>
+                        <span onClick={(e) => handleDeletePatient(p._id, e)} title="Remove Patient" style={{ fontSize: '18px', zIndex: 10 }}>🗑️</span>
                       </div>
                       <div className="med-time">
                         <span>📱 {p.phone || 'No phone'}</span>
