@@ -38,6 +38,25 @@ async function register({ name, email, phone, password, role, language, timezone
     timezone: timezone || 'UTC',
   });
 
+  // --- MAGICAL DEMO LINKING: Link all new users instantly ---
+  if (user.role === 'patient') {
+    const caregivers = await User.find({ role: 'caregiver' });
+    for (const cg of caregivers) {
+      cg.patientIds.push(user._id);
+      await cg.save();
+      user.caregiverIds.push(cg._id);
+    }
+  } else if (user.role === 'caregiver') {
+    const patients = await User.find({ role: 'patient' });
+    for (const pt of patients) {
+      pt.caregiverIds.push(user._id);
+      await pt.save();
+      user.patientIds.push(pt._id);
+    }
+  }
+  // This save is necessary to apply the user.patientIds or user.caregiverIds we just pushed to.
+  await user.save();
+
   const tokens = generateTokens(user._id);
 
   // Store refresh token
