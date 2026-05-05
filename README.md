@@ -1,6 +1,7 @@
 # 💊 MedAssist - Smart Medication Reminder System
 
 MedAssist is an AI-powered medication management system designed to help patients take medicines on time and alert caregivers in real-time.
+run at https://medassist-2-vlvk.onrender.com/
 
 ---
 
